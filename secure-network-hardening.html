@@ -253,7 +253,28 @@
       columns: 2;
       margin-top: 15px;
     }
+.architecture-image {
+  margin-top: 35px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  overflow: hidden;
+}
 
+.architecture-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.image-caption {
+  margin-top: 15px;
+  text-align: center;
+  color: #64748b;
+  font-size: .88rem;
+}
     footer {
       padding: 40px 0;
       text-align: center;
@@ -542,12 +563,16 @@
 
     </div>
 
-    <div class="evidence">
-      <strong>Validation Evidence:</strong>
-      Screenshots in the original project demonstrate both successful
-      authorized access and denied access for the restricted user.
-    </div>
-
+    <div class="architecture-image">
+  <img
+    src="File-Access-Denied.png"
+    alt="Windows access denied message validating restricted file permissions"
+  >
+  <p class="image-caption">
+    Validation test demonstrating that a restricted user was denied access to the protected file.
+  </p>
+</div>
+    
   </div>
 </section>
 
@@ -810,28 +835,7 @@
 
   </div>
 </section>
-.architecture-image {
-  margin-top: 35px;
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 20px;
-  overflow: hidden;
-}
 
-.architecture-image img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.image-caption {
-  margin-top: 15px;
-  text-align: center;
-  color: #64748b;
-  font-size: .88rem;
-}
 
 <footer>
   <div class="container">
