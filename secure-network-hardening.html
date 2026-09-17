@@ -429,11 +429,15 @@
       </ul>
     </div>
 
-    <div class="evidence">
-      <strong>Portfolio Evidence:</strong>
-      The original project includes a network diagram created during the
-      architecture phase. We will place that diagram here as a visual artifact.
-    </div>
+<div class="architecture-image">
+  <img
+    src="Secure-Network-Architecture.png"
+    alt="Secure network architecture designed by Leor Manson"
+  >
+  <p class="image-caption">
+    Original secure network architecture developed during the design phase of the project.
+  </p>
+</div>
 
   </div>
 </section>
@@ -803,7 +807,28 @@
 
   </div>
 </section>
+.architecture-image {
+  margin-top: 35px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  overflow: hidden;
+}
 
+.architecture-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.image-caption {
+  margin-top: 15px;
+  text-align: center;
+  color: #64748b;
+  font-size: .88rem;
+}
 
 <footer>
   <div class="container">
