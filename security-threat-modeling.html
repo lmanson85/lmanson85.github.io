@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Security Assessment & Threat Modeling | Leor Manson</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #070b14;
+      --panel: #0d1422;
+      --panel-light: #111b2d;
+      --border: #1f3048;
+      --text: #e8eef7;
+      --muted: #9caabd;
+      --accent: #38bdf8;
+      --accent2: #22c55e;
+      --warning: #f59e0b;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top right, rgba(56,189,248,.09), transparent 28%),
+        #070b14;
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1100px, 90%);
+      margin: auto;
+    }
+
+    nav {
+      border-bottom: 1px solid var(--border);
+      background: rgba(7,11,20,.92);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-inner {
+      min-height: 68px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+
+    .back {
+      color: var(--accent);
+      font-size: .92rem;
+      font-weight: 700;
+    }
+
+    .hero {
+      padding: 95px 0 70px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: .78rem;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.7rem);
+      line-height: 1.05;
+      max-width: 950px;
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      max-width: 850px;
+      color: var(--muted);
+      font-size: 1.15rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .tag {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: #cbd5e1;
+      font-size: .83rem;
+    }
+
+    section {
+      padding: 72px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 18px;
+    }
+
+    h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    p {
+      color: var(--muted);
+    }
+
+    .lead {
+      max-width: 880px;
+      font-size: 1.06rem;
+    }
+
+    .flow {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .flow div {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      text-align: center;
+      font-weight: 700;
+      color: #d8e3f0;
+    }
+
+    .flow span {
+      display: block;
+      color: var(--accent);
+      font-size: .72rem;
+      margin-bottom: 6px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, var(--panel), var(--panel-light));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 25px;
+    }
+
+    .card p {
+      font-size: .96rem;
+    }
+
+    .number {
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .finding {
+      border-left: 3px solid var(--warning);
+    }
+
+    .control {
+      border-left: 3px solid var(--accent2);
+    }
+
+    .stride-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .stride-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+    }
+
+    .stride-letter {
+      display: inline-flex;
+      width: 38px;
+      height: 38px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: rgba(56,189,248,.12);
+      color: var(--accent);
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .crypto-step {
+      margin-top: 20px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    .crypto-step strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .note {
+      margin-top: 30px;
+      border-left: 3px solid var(--accent);
+      background: var(--panel);
+      padding: 24px 28px;
+      border-radius: 0 12px 12px 0;
+    }
+
+    .note strong {
+      color: var(--text);
+    }
+
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      color: #64748b;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 760px) {
+      .grid,
+      .flow,
+      .stride-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 65px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a class="brand" href="index.html">LEOR MANSON</a>
+    <a class="back" href="index.html">← BACK TO PORTFOLIO</a>
+  </div>
+</nav>
+
+
+<header class="hero">
+  <div class="container">
+
+    <div class="eyebrow">
+      Threat Modeling • Security Architecture • Cryptography
+    </div>
+
+    <h1>Security Assessment, Threat Modeling &amp; Cryptography</h1>
+
+    <p>
+      A security assessment combining structured STRIDE threat modeling,
+      infrastructure analysis, security architecture improvements, and applied
+      cryptography to identify weaknesses and design stronger protections for
+      systems, networks, identities, and sensitive information.
+    </p>
+
+    <div class="tags">
+      <span class="tag">STRIDE</span>
+      <span class="tag">Threat Modeling</span>
+      <span class="tag">Security Architecture</span>
+      <span class="tag">AES-256</span>
+      <span class="tag">RSA</span>
+      <span class="tag">SHA-256</span>
+      <span class="tag">Digital Signatures</span>
+    </div>
+
+  </div>
+</header>
+
+
+<section>
+  <div class="container">
+
+    <h2>Project Overview</h2>
+
+    <p class="lead">
+      This project evaluated a simulated technology environment to identify
+      security weaknesses, analyze potential threats, and design appropriate
+      safeguards. The assessment combined threat modeling with security
+      architecture and cryptographic controls, demonstrating how different
+      security disciplines can work together to reduce organizational risk.
+    </p>
+
+    <div class="flow">
+      <div><span>01</span>Assess Environment</div>
+      <div><span>02</span>Model Threats</div>
+      <div><span>03</span>Design Controls</div>
+      <div><span>04</span>Protect Information</div>
+    </div>
+
+  </div>
+</section>
+
+
+<section>
+  <div class="container">
+
+    <h2>Security Assessment</h2>
+
+    <p class="lead">
+      The assessment examined weaknesses across endpoints, servers, cloud
+      resources, network infrastructure, authentication, permissions, and
+      security monitoring. Findings were evaluated in the context of how an
+      attacker could exploit the environment and what controls could reduce
+      that exposure.
+    </p>
+
+    <div class="grid">
+
+      <div class="card finding">
+        <div class="number">FINDING AREA 01</div>
+        <h3>Endpoint &amp; Server Security</h3>
+        <p>
+          The environment included systems requiring stronger patch management,
+          encryption, authentication, and endpoint protection to reduce the
+          likelihood and impact of compromise.
+        </p>
+      </div>
+
+      <div class="card finding">
+        <div class="number">FINDING AREA 02</div>
+        <h3>Identity &amp; Authentication</h3>
+        <p>
+          Authentication weaknesses, including the absence of multi-factor
+          authentication in portions of the environment, increased exposure to
+          unauthorized access.
+        </p>
+      </div>
+
+      <div class="card finding">
+        <div class="number">FINDING AREA 03</div>
+        <h3>Network Security</h3>
+        <p>
+          Outdated perimeter security and insufficient network segmentation
+          created opportunities for unauthorized access and lateral movement
+          between systems.
+        </p>
+      </div>
+
+      <div class="card finding">
+        <div class="number">FINDING AREA 04</div>
+        <h3>Cloud &amp; Monitoring</h3>
+        <p>
+          Cloud-storage exposure and decentralized security logging demonstrated
+          the need for stronger cloud configuration and centralized visibility
+          across the environment.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section>
+  <div class="container">
+
+    <h2>STRIDE Threat Modeling</h2>
+
+    <p class="lead">
+      STRIDE provided a structured framework for considering how systems and
+      information could be attacked. The model helped connect technical
+      weaknesses to specific categories of security threats and appropriate
+      mitigation strategies.
+    </p>
+
+    <div class="stride-grid">
+
+      <div class="stride-card">
+        <div class="stride-letter">S</div>
+        <h3>Spoofing</h3>
+        <p>
+          Evaluated scenarios in which an attacker could impersonate a
+          legitimate user or system.
+        </p>
+      </div>
+
+      <div class="stride-card">
+        <div class="stride-letter">T</div>
+        <h3>Tampering</h3>
+        <p>
+          Considered unauthorized modification of systems, configurations,
+          messages, or stored information.
+        </p>
+      </div>
+
+      <div class="stride-card">
+        <div class="stride-letter">R</div>
+        <h3>Repudiation</h3>
+        <p>
+          Examined the importance of logging and accountability when users or
+          systems perform security-relevant actions.
+        </p>
+      </div>
+
+      <div class="stride-card">
+        <div class="stride-letter">I</div>
+        <h3>Information Disclosure</h3>
+        <p>
+          Identified conditions that could expose sensitive information to
+          unauthorized individuals.
+        </p>
+      </div>
+
+      <div class="stride-card">
+        <div class="stride-letter">D</div>
+        <h3>Denial of Service</h3>
+        <p>
+          Considered threats capable of disrupting the availability of systems,
+          applications, or network resources.
+        </p>
+      </div>
+
+      <div class="stride-card">
+        <div class="stride-letter">E</div>
+        <h3>Elevation of Privilege</h3>
+        <p>
+          Evaluated weaknesses that could allow a user or attacker to obtain
+          permissions beyond those they were authorized to possess.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="note">
+      <strong>Threat Modeling Outcome</strong>
+      <p>
+        The assessment documented 13 security findings and used structured
+        threat analysis to connect vulnerabilities with potential attack
+        scenarios and recommended safeguards.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<section>
+  <div class="container">
+
+    <h2>Security Architecture Improvements</h2>
+
+    <p class="lead">
+      Findings from the assessment were translated into a redesigned security
+      architecture emphasizing layered controls, stronger authentication,
+      network isolation, improved endpoint protection, and centralized
+      monitoring.
+    </p>
+
+    <div class="grid">
+
+      <div class="card control">
+        <div class="number">CONTROL AREA 01</div>
+        <h3>Network Segmentation</h3>
+        <p>
+          VLAN-based segmentation was incorporated to separate systems and
+          reduce unnecessary communication between security zones.
+        </p>
+      </div>
+
+      <div class="card control">
+        <div class="number">CONTROL AREA 02</div>
+        <h3>Identity Protection</h3>
+        <p>
+          Multi-factor authentication and stronger access controls were
+          recommended to reduce exposure from compromised credentials.
+        </p>
+      </div>
+
+      <div class="card control">
+        <div class="number">CONTROL AREA 03</div>
+        <h3>Perimeter &amp; Endpoint Defense</h3>
+        <p>
+          Updated firewall capabilities, patch management, endpoint protection,
+          and full-disk encryption strengthened multiple layers of the
+          environment.
+        </p>
+      </div>
+
+      <div class="card control">
+        <div class="number">CONTROL AREA 04</div>
+        <h3>Centralized Monitoring</h3>
+        <p>
+          Centralized security logging and SIEM capabilities were recommended
+          to improve visibility, investigation, and detection across systems.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section>
+  <div class="container">
+
+    <div class="eyebrow">APPLIED CRYPTOGRAPHY</div>
+
+    <h2>Secure Message Design</h2>
+
+    <p class="lead">
+      The project also demonstrated how encryption, hashing, and digital
+      signatures can work together to protect confidentiality, integrity, and
+      authenticity when sensitive information is exchanged.
+    </p>
+
+    <div class="crypto-step">
+      <strong>01 — AES-256 Encryption</strong>
+      <p>
+        AES-256 using CBC mode was used to encrypt message content, demonstrating
+        symmetric encryption for protecting the confidentiality of data.
+      </p>
+    </div>
+
+    <div class="crypto-step">
+      <strong>02 — RSA Key Protection</strong>
+      <p>
+        RSA asymmetric cryptography was used to protect the AES key, demonstrating
+        how public-key cryptography can support secure exchange of symmetric
+        encryption keys.
+      </p>
+    </div>
+
+    <div class="crypto-step">
+      <strong>03 — SHA-256 Integrity Verification</strong>
+      <p>
+        SHA-256 hashing was used to create a message digest that could be
+        compared to determine whether the original information had changed.
+      </p>
+    </div>
+
+    <div class="crypto-step">
+      <strong>04 — Digital Signature</strong>
+      <p>
+        RSA signing and verification demonstrated how digital signatures can
+        provide message authenticity and help verify that information has not
+        been modified.
+      </p>
+    </div>
+
+    <div class="crypto-step">
+      <strong>05 — Tamper Detection</strong>
+      <p>
+        The message was intentionally modified and hashed again. The resulting
+        digest differed from the original, demonstrating how hashing can reveal
+        changes to protected information.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<section>
+  <div class="container">
+
+    <h2>Security Principles Demonstrated</h2>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="number">CONFIDENTIALITY</div>
+        <h3>Protect Sensitive Information</h3>
+        <p>
+          Encryption and access controls help prevent unauthorized disclosure
+          of sensitive data.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="number">INTEGRITY</div>
+        <h3>Detect Unauthorized Changes</h3>
+        <p>
+          Cryptographic hashing and digital signatures provide mechanisms for
+          identifying whether information has been altered.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="number">AUTHENTICATION</div>
+        <h3>Verify Identity</h3>
+        <p>
+          Stronger authentication and asymmetric cryptography help establish
+          trust between users, systems, and communications.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="number">DEFENSE IN DEPTH</div>
+        <h3>Layer Security Controls</h3>
+        <p>
+          Network, endpoint, identity, monitoring, and cryptographic controls
+          combine to reduce reliance on any single safeguard.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section>
+  <div class="container">
+
+    <h2>What This Project Demonstrates</h2>
+
+    <div class="grid">
+
+      <div class="card">
+        <h3>Threat Modeling</h3>
+        <p>
+          Applying STRIDE to systematically evaluate potential security threats
+          and connect weaknesses to realistic attack scenarios.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Security Architecture</h3>
+        <p>
+          Translating assessment findings into layered technical safeguards and
+          infrastructure improvements.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Applied Cryptography</h3>
+        <p>
+          Using symmetric encryption, asymmetric cryptography, hashing, and
+          digital signatures to protect information.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Security Analysis</h3>
+        <p>
+          Connecting technical weaknesses, threat scenarios, security controls,
+          and fundamental security objectives.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="note">
+      <strong>Portfolio Note</strong>
+      <p>
+        This case study is based on a simulated environment and cybersecurity
+        training exercises. It contains no confidential client, employer, or
+        proprietary information.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<footer>
+  <div class="container">
+    © 2026 Leor Manson • Cybersecurity Portfolio
+  </div>
+</footer>
+
+</body>
+</html>
