@@ -253,7 +253,26 @@
     .note strong {
       color: var(--text);
     }
+.risk-matrix {
+  margin-top: 30px;
+  text-align: center;
+}
 
+.risk-matrix img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: white;
+}
+
+.risk-matrix-caption {
+  max-width: 650px;
+  margin: 12px auto 0;
+  color: var(--muted);
+  font-size: .9rem;
+}
     footer {
       padding: 40px 0;
       text-align: center;
@@ -426,7 +445,15 @@
         Medium, High, or Very High.
       </p>
     </div>
-
+<div class="risk-matrix">
+  <img
+    src="TechEase-Risk-Matrix.png"
+    alt="Likelihood and impact cybersecurity risk matrix used in the TechEase Solutions assessment"
+  >
+  <p class="risk-matrix-caption">
+    Original likelihood × impact matrix used to score and categorize identified cybersecurity risks.
+  </p>
+</div>
 
     <div class="risk-row">
       <div class="risk-header">
