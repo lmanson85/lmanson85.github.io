@@ -237,6 +237,22 @@
       color: var(--text);
       margin-bottom: 8px;
     }
+    .stride-evidence {
+  margin-top: 35px;
+  text-align: center;
+  overflow-x: auto;
+}
+
+.stride-evidence img {
+  display: block;
+  width: 100%;
+  min-width: 900px;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: white;
+}
 .architecture-visual {
   margin-top: 40px;
   text-align: center;
@@ -495,7 +511,22 @@
         scenarios and recommended safeguards.
       </p>
     </div>
+<div class="stride-evidence">
+  <img
+    src="STRIDE-Threat-Model.png"
+    alt="STRIDE threat modeling assessment showing 13 security findings across endpoints, servers, Azure cloud services, network infrastructure, and logging and monitoring"
+  >
 
+  <p class="visual-caption">
+    Original STRIDE threat-modeling assessment documenting 13 findings across
+    endpoints, servers, Azure cloud services, network infrastructure, and
+    logging and monitoring. Each finding connects a threat category and
+    component to its potential impact, proposed mitigation, and recommended
+    security tools.
+  </p>
+</div>
+
+    
   </div>
 </section>
 
