@@ -304,7 +304,7 @@
     <p>
       A cybersecurity risk assessment of a simulated small-business environment,
       identifying weaknesses across network security, endpoint protection,
-      authentication, remote access, resilience, and employee security awareness,
+      authentication, resilience, and employee security awareness,
       then translating those findings into practical security recommendations.
     </p>
 
@@ -365,7 +365,7 @@
         <h3>Cybercriminals</h3>
         <p>
           External attackers could exploit weak network security, compromised
-          credentials, vulnerable endpoints, or remote-access weaknesses for
+          credentials, vulnerable endpoints, or weak security configurations for
           financial gain or unauthorized access.
         </p>
       </div>
@@ -404,16 +404,28 @@
   </div>
 </section>
 
-
 <section>
   <div class="container">
 
     <h2>Risk Analysis</h2>
 
     <p class="lead">
-      Each weakness was connected to the security risk it created and a practical
-      recommendation designed to reduce that exposure.
+      Each identified weakness was documented in a structured risk register and
+      evaluated using likelihood and impact. The resulting risk score helped
+      communicate the relative severity of each finding and connect the risk to
+      an appropriate mitigation strategy.
     </p>
+
+
+    <div class="note">
+      <strong>Risk Scoring Methodology</strong>
+      <p>
+        Likelihood and impact were each rated on a three-point scale:
+        1 = Low, 2 = Medium, and 3 = High. The combined assessment produced
+        risk scores ranging from 2 to 6, categorized as Very Low, Low,
+        Medium, High, or Very High.
+      </p>
+    </div>
 
 
     <div class="risk-row">
@@ -424,26 +436,28 @@
 
       <div class="risk-body">
         <div>
-          <strong>Weakness</strong>
-          <p>
-            The organization relied on a basic router that provided limited
-            enterprise security capabilities.
-          </p>
-        </div>
-
-        <div>
           <strong>Risk</strong>
           <p>
-            Insufficient perimeter protection could increase the likelihood of
-            unauthorized network access.
+            Unauthorized attackers could access the network due to weak
+            perimeter protection.
           </p>
         </div>
 
         <div>
-          <strong>Recommended Control</strong>
+          <strong>Assessment</strong>
           <p>
-            Deploy a business-grade router, maintain firmware updates, and use
-            secure VPN access for remote connectivity.
+            Likelihood: 3 (High)<br>
+            Impact: 2 (Medium)<br>
+            <strong>Risk Score: 5 — High</strong>
+          </p>
+        </div>
+
+        <div>
+          <strong>Mitigation</strong>
+          <p>
+            Replace the basic router with an enterprise-level solution that
+            supports stronger access controls, VPN connectivity, and regular
+            firmware updates.
           </p>
         </div>
       </div>
@@ -452,32 +466,33 @@
 
     <div class="risk-row">
       <div class="risk-header">
-        <span>RISK 02 — NETWORK SEGMENTATION</span>
-        <h3>Shared Guest &amp; Employee Wi-Fi</h3>
+        <span>RISK 02 — WI-FI SECURITY</span>
+        <h3>Guest Wi-Fi Shared With Employees</h3>
       </div>
 
       <div class="risk-body">
         <div>
-          <strong>Weakness</strong>
-          <p>
-            Employees and guests shared network access without sufficient
-            separation.
-          </p>
-        </div>
-
-        <div>
           <strong>Risk</strong>
           <p>
-            A compromised or untrusted device could increase exposure to internal
-            systems and enable unnecessary lateral network access.
+            Shared network access could expose the environment to unauthorized
+            or malicious devices.
           </p>
         </div>
 
         <div>
-          <strong>Recommended Control</strong>
+          <strong>Assessment</strong>
           <p>
-            Separate guest and employee traffic through network segmentation and
-            restrict guest access to internal resources.
+            Likelihood: 1 (Low)<br>
+            Impact: 2 (Medium)<br>
+            <strong>Risk Score: 3 — Low</strong>
+          </p>
+        </div>
+
+        <div>
+          <strong>Mitigation</strong>
+          <p>
+            Require employees to use the employee network and restrict the
+            guest network to guest devices.
           </p>
         </div>
       </div>
@@ -486,66 +501,33 @@
 
     <div class="risk-row">
       <div class="risk-header">
-        <span>RISK 03 — REMOTE ACCESS</span>
-        <h3>Unvetted Remote-Access Tools</h3>
-      </div>
-
-      <div class="risk-body">
-        <div>
-          <strong>Weakness</strong>
-          <p>
-            Remote workers relied on third-party remote-access tools without a
-            standardized security review or approved access method.
-          </p>
-        </div>
-
-        <div>
-          <strong>Risk</strong>
-          <p>
-            Uncontrolled third-party access could expose credentials, systems, or
-            business information to unauthorized access or vendor-related risk.
-          </p>
-        </div>
-
-        <div>
-          <strong>Recommended Control</strong>
-          <p>
-            Establish an approved remote-access solution using secure VPN
-            connectivity and controlled authentication requirements.
-          </p>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="risk-row">
-      <div class="risk-header">
-        <span>RISK 04 — ENDPOINT SECURITY</span>
+        <span>RISK 03 — ENDPOINT SECURITY</span>
         <h3>No Endpoint Protection</h3>
       </div>
 
       <div class="risk-body">
         <div>
-          <strong>Weakness</strong>
-          <p>
-            Company endpoints lacked a standardized endpoint detection and
-            protection capability.
-          </p>
-        </div>
-
-        <div>
           <strong>Risk</strong>
           <p>
-            Malware or ransomware could execute without sufficient detection,
-            potentially affecting systems and business data.
+            Malware or ransomware could spread without sufficient detection,
+            potentially resulting in a company-wide security breach.
           </p>
         </div>
 
         <div>
-          <strong>Recommended Control</strong>
+          <strong>Assessment</strong>
           <p>
-            Deploy endpoint detection and response protection across company
-            devices and maintain consistent security configurations.
+            Likelihood: 3 (High)<br>
+            Impact: 2 (Medium)<br>
+            <strong>Risk Score: 5 — High</strong>
+          </p>
+        </div>
+
+        <div>
+          <strong>Mitigation</strong>
+          <p>
+            Implement Endpoint Detection and Response (EDR) across company
+            devices.
           </p>
         </div>
       </div>
@@ -554,32 +536,33 @@
 
     <div class="risk-row">
       <div class="risk-header">
-        <span>RISK 05 — AUTHENTICATION</span>
-        <h3>Weak Password Practices</h3>
+        <span>RISK 04 — AUTHENTICATION</span>
+        <h3>Minimal Password Security Practices</h3>
       </div>
 
       <div class="risk-body">
         <div>
-          <strong>Weakness</strong>
-          <p>
-            Minimal password requirements increased the likelihood of weak,
-            reused, or easily compromised credentials.
-          </p>
-        </div>
-
-        <div>
           <strong>Risk</strong>
           <p>
-            Credential compromise could allow attackers to impersonate legitimate
-            users and access organizational resources.
+            Weak credential practices could enable unauthorized system access
+            through credential stuffing or brute-force attacks.
           </p>
         </div>
 
         <div>
-          <strong>Recommended Control</strong>
+          <strong>Assessment</strong>
           <p>
-            Establish stronger password requirements and a formal password
-            management policy.
+            Likelihood: 2 (Medium)<br>
+            Impact: 2 (Medium)<br>
+            <strong>Risk Score: 4 — Medium</strong>
+          </p>
+        </div>
+
+        <div>
+          <strong>Mitigation</strong>
+          <p>
+            Establish stronger password requirements and require passwords to
+            be changed regularly.
           </p>
         </div>
       </div>
@@ -588,32 +571,33 @@
 
     <div class="risk-row">
       <div class="risk-header">
-        <span>RISK 06 — RESILIENCE</span>
-        <h3>No Incident Response or Backup Plan</h3>
+        <span>RISK 05 — RESPONSE &amp; RECOVERY</span>
+        <h3>No Formal Incident Response or Backup Recovery Plan</h3>
       </div>
 
       <div class="risk-body">
         <div>
-          <strong>Weakness</strong>
-          <p>
-            The organization lacked formal incident-response and backup/recovery
-            procedures.
-          </p>
-        </div>
-
-        <div>
           <strong>Risk</strong>
           <p>
-            A security incident could result in extended downtime, data loss, and
-            an uncoordinated response.
+            A security incident could result in extended system downtime and
+            slow data recovery.
           </p>
         </div>
 
         <div>
-          <strong>Recommended Control</strong>
+          <strong>Assessment</strong>
           <p>
-            Develop an incident-response plan, disaster-recovery procedures, and
-            a documented backup strategy.
+            Likelihood: 1 (Low)<br>
+            Impact: 3 (High)<br>
+            <strong>Risk Score: 4 — Medium</strong>
+          </p>
+        </div>
+
+        <div>
+          <strong>Mitigation</strong>
+          <p>
+            Create an Incident Response Plan (IRP), establish a Disaster
+            Recovery (DR) plan, and perform regular backups.
           </p>
         </div>
       </div>
@@ -622,39 +606,57 @@
 
     <div class="risk-row">
       <div class="risk-header">
-        <span>RISK 07 — HUMAN RISK</span>
-        <h3>Limited Security Awareness Training</h3>
+        <span>RISK 06 — HUMAN RISK</span>
+        <h3>Lack of Formal Cybersecurity Training</h3>
       </div>
 
       <div class="risk-body">
         <div>
-          <strong>Weakness</strong>
-          <p>
-            Employees lacked formal cybersecurity awareness training.
-          </p>
-        </div>
-
-        <div>
           <strong>Risk</strong>
           <p>
-            Users could be more susceptible to phishing, social engineering, and
-            other attacks that target human behavior.
+            Employees could be more susceptible to successful phishing and
+            social-engineering attacks.
           </p>
         </div>
 
         <div>
-          <strong>Recommended Control</strong>
+          <strong>Assessment</strong>
           <p>
-            Implement recurring security-awareness education focused on phishing,
-            social engineering, credential security, and safe computing practices.
+            Likelihood: 2 (Medium)<br>
+            Impact: 3 (High)<br>
+            <strong>Risk Score: 5 — High</strong>
+          </p>
+        </div>
+
+        <div>
+          <strong>Mitigation</strong>
+          <p>
+            Develop required cybersecurity training covering phishing,
+            social engineering, and general internet safety.
           </p>
         </div>
       </div>
+    </div>
+
+
+    <div class="note">
+      <strong>Original Project Evidence</strong>
+      <p>
+        The original risk register documents the attack surface, vulnerability,
+        attack vector, threat actor, risk statement, likelihood, impact,
+        risk score, and mitigation strategy for each finding.
+      </p>
+
+      <a href="TechEase-Risk-Analysis.pdf"
+         target="_blank"
+         rel="noopener noreferrer"
+         style="display:inline-block; margin-top:18px; color:#38bdf8; font-family:monospace; font-weight:bold;">
+        VIEW ORIGINAL RISK ANALYSIS →
+      </a>
     </div>
 
   </div>
 </section>
-
 
 <section>
   <div class="container">
@@ -673,9 +675,9 @@
         <div class="number">CONTROL AREA 01</div>
         <h3>Preventive Controls</h3>
         <p>
-          Stronger authentication, network segmentation, secure remote access,
-          and improved perimeter security reduce opportunities for unauthorized
-          access.
+          Stronger authentication, network separation, improved perimeter
+security, and controlled access reduce opportunities for unauthorized
+access.
         </p>
       </div>
 
