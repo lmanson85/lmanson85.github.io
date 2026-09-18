@@ -237,6 +237,62 @@
       color: var(--text);
       margin-bottom: 8px;
     }
+    .crypto-evidence {
+  margin-top: 50px;
+}
+
+.crypto-evidence-header {
+  max-width: 800px;
+  margin-bottom: 25px;
+}
+
+.crypto-evidence-header h3 {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+}
+
+.crypto-evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.crypto-evidence-card {
+  background: linear-gradient(145deg, var(--panel), var(--panel-light));
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.crypto-evidence-card img {
+  display: block;
+  width: 100%;
+  height: 230px;
+  object-fit: contain;
+  background: white;
+  border-bottom: 1px solid var(--border);
+}
+
+.crypto-evidence-content {
+  padding: 20px;
+}
+
+.crypto-evidence-content span {
+  display: block;
+  color: var(--accent);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 7px;
+}
+
+.crypto-evidence-content h3 {
+  margin-bottom: 8px;
+}
+
+.crypto-evidence-content p {
+  font-size: .9rem;
+}
     .stride-evidence {
   margin-top: 35px;
   text-align: center;
@@ -294,12 +350,13 @@
       font-size: .9rem;
     }
 
-    @media (max-width: 760px) {
-      .grid,
-      .flow,
-      .stride-grid {
-        grid-template-columns: 1fr;
-      }
+@media (max-width: 760px) {
+  .grid,
+  .flow,
+  .stride-grid,
+  .crypto-evidence-grid {
+    grid-template-columns: 1fr;
+  }
 
       .hero {
         padding-top: 65px;
@@ -655,7 +712,69 @@
         changes to protected information.
       </p>
     </div>
+<div class="crypto-evidence">
 
+  <div class="crypto-evidence-header">
+    <div class="eyebrow">ORIGINAL PROJECT EVIDENCE</div>
+    <h3>Cryptographic Workflow</h3>
+    <p>
+      Selected artifacts from the hands-on cryptography exercise demonstrate
+      encryption, signature verification, and integrity testing using
+      cryptographic operations.
+    </p>
+  </div>
+
+  <div class="crypto-evidence-grid">
+
+    <div class="crypto-evidence-card">
+      <img
+        src="Crypto-AES256-Encryption.png"
+        alt="AES-256 CBC encryption performed during the cryptography exercise"
+      >
+      <div class="crypto-evidence-content">
+        <span>01 — CONFIDENTIALITY</span>
+        <h3>AES-256 Encryption</h3>
+        <p>
+          Message content was encrypted using AES-256 in CBC mode,
+          demonstrating symmetric encryption of sensitive information.
+        </p>
+      </div>
+    </div>
+
+    <div class="crypto-evidence-card">
+      <img
+        src="Crypto-RSA-Verification.png"
+        alt="Successful RSA digital signature verification showing Verified OK"
+      >
+      <div class="crypto-evidence-content">
+        <span>02 — AUTHENTICITY &amp; INTEGRITY</span>
+        <h3>RSA Signature Verification</h3>
+        <p>
+          RSA verification produced a successful “Verified OK” result,
+          demonstrating validation of a digital signature.
+        </p>
+      </div>
+    </div>
+
+    <div class="crypto-evidence-card">
+      <img
+        src="Crypto-SHA256-Tamper-Detection.png"
+        alt="Modified message producing a new SHA-256 hash during tamper detection testing"
+      >
+      <div class="crypto-evidence-content">
+        <span>03 — TAMPER DETECTION</span>
+        <h3>Hash Integrity Test</h3>
+        <p>
+          The original message was intentionally modified from 10:00 AM to
+          11:00 AM and hashed again, demonstrating how a changed digest can
+          reveal modification of the underlying data.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
   </div>
 </section>
 
