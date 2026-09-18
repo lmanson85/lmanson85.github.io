@@ -237,7 +237,28 @@
       color: var(--text);
       margin-bottom: 8px;
     }
+.architecture-visual {
+  margin-top: 40px;
+  text-align: center;
+}
 
+.architecture-visual img {
+  display: block;
+  width: 100%;
+  max-width: 950px;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: white;
+}
+
+.visual-caption {
+  max-width: 800px;
+  margin: 14px auto 0;
+  color: var(--muted);
+  font-size: .9rem;
+}
     .note {
       margin-top: 30px;
       border-left: 3px solid var(--accent);
@@ -531,7 +552,19 @@
       </div>
 
     </div>
+<div class="architecture-visual">
+  <img
+    src="Security-Architecture-Redesign.png"
+    alt="Redesigned security architecture showing network segmentation, centralized logging, endpoint protection, VPN security, and Azure cloud security controls"
+  >
 
+  <p class="visual-caption">
+    Redesigned infrastructure architecture created for the assessment,
+    incorporating network segmentation, stronger perimeter controls,
+    centralized monitoring, endpoint protection, multi-factor authentication,
+    encryption, and Azure security controls.
+  </p>
+</div>
   </div>
 </section>
 
