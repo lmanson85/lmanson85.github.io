@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Privacy & OSINT Investigations | Leor Manson</title>
+
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: #0c1828;
+      --panel2: #101f32;
+      --border: #1d3047;
+      --text: #e6edf6;
+      --muted: #94a3b8;
+      --accent: #43d9ad;
+      --accent2: #38bdf8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.7;
+    }
+
+    .container {
+      width: min(1100px, 90%);
+      margin: 0 auto;
+    }
+
+    nav {
+      border-bottom: 1px solid var(--border);
+      background: rgba(7, 17, 31, 0.96);
+    }
+
+    .nav-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .brand,
+    .back {
+      color: var(--text);
+      text-decoration: none;
+      font-family: monospace;
+      font-weight: bold;
+      letter-spacing: .04em;
+    }
+
+    .back {
+      color: var(--accent);
+      font-size: .9rem;
+    }
+
+    .hero {
+      padding: 105px 0 90px;
+      border-bottom: 1px solid var(--border);
+      background:
+        radial-gradient(circle at 75% 20%, rgba(67,217,173,.08), transparent 30%),
+        radial-gradient(circle at 20% 70%, rgba(56,189,248,.06), transparent 35%);
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-family: monospace;
+      font-weight: bold;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 22px;
+      font-size: clamp(2.6rem, 6vw, 4.8rem);
+      line-height: 1.05;
+      letter-spacing: -.04em;
+    }
+
+    .hero p {
+      max-width: 820px;
+      color: var(--muted);
+      font-size: 1.15rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .tag {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--accent);
+      border-radius: 6px;
+      padding: 7px 11px;
+      font-family: monospace;
+      font-size: .82rem;
+    }
+
+    section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+
+    h3 {
+      margin-top: 0;
+      color: var(--text);
+    }
+
+    .lead {
+      max-width: 900px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 38px;
+    }
+
+    .metric {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 30px 25px;
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--accent);
+      font-size: 2.5rem;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .metric span {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 35px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .number {
+      color: var(--accent);
+      font-family: monospace;
+      font-size: .78rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 35px;
+    }
+
+    .flow div {
+      padding: 22px 18px;
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    .flow span {
+      display: block;
+      color: var(--accent);
+      font-family: monospace;
+      font-size: .75rem;
+      margin-bottom: 7px;
+    }
+
+    .response {
+      margin-top: 35px;
+      padding: 30px;
+      background: var(--panel);
+      border-left: 3px solid var(--accent2);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .response h3 {
+      margin-bottom: 12px;
+    }
+
+    .response p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .note {
+      margin-top: 35px;
+      padding: 28px;
+      background: var(--panel);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .note strong {
+      color: var(--text);
+    }
+
+    .note p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      color: #64748b;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 760px) {
+      .metrics,
+      .grid,
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 65px;
+      }
+
+      .nav-inner {
+        min-height: 65px;
+      }
+
+      .back {
+        font-size: .75rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a class="brand" href="index.html">LEOR MANSON</a>
+    <a class="back" href="index.html">← BACK TO PORTFOLIO</a>
+  </div>
+</nav>
+
+
+<header class="hero">
+  <div class="container">
+
+    <div class="eyebrow">
+      Professional Case Study • Digital Privacy • OSINT • Risk
+    </div>
+
+    <h1>Privacy &amp; OSINT Investigations</h1>
+
+    <p>
+      Professional experience conducting OSINT-driven privacy investigations,
+      digital risk assessments, and personal-information exposure analysis for
+      organizations and individuals. The work combined investigative research,
+      risk analysis, data-removal operations, ongoing monitoring, and clear
+      communication of digital exposure.
+    </p>
+
+    <div class="tags">
+      <span class="tag">OSINT</span>
+      <span class="tag">Digital Privacy</span>
+      <span class="tag">Risk Assessment</span>
+      <span class="tag">PII Exposure</span>
+      <span class="tag">Data Brokers</span>
+      <span class="tag">Attack Surface</span>
+    </div>
+
+  </div>
+</header>
+
+
+<section>
+  <div class="container">
+
+    <h2>Professional Scope</h2>
+
+    <p class="lead">
+      As a Privacy Specialist, I managed digital privacy protection across a
+      portfolio of organizations and users. My work focused on identifying
+      exposed personal information, evaluating digital risk, coordinating
+      removal efforts, monitoring for reappearance, and communicating findings
+      in a client-facing environment.
+    </p>
+
+    <div class="metrics">
+
+      <div class="metric">
+        <strong>30+</strong>
+        <span>Organizations managed</span>
+      </div>
+
+      <div class="metric">
+        <strong>3,000+</strong>
+        <span>Users represented across the portfolio</span>
+      </div>
+
+      <div class="metric">
+        <strong>17</strong>
+        <span>Comprehensive digital risk assessments developed</span>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section>
+  <div class="container">
+
+    <h2>Investigation &amp; Risk Assessment</h2>
+
+    <p class="lead">
+      Investigations used open-source intelligence and cybersecurity techniques
+      to evaluate an individual's or organization's publicly accessible digital
+      footprint and identify information that could increase privacy, cyber, or
+      physical-security risk.
+    </p>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="number">INVESTIGATION AREA 01</div>
+        <h3>PII Exposure</h3>
+        <p>
+          Identified exposed personal information across publicly accessible
+          sources and evaluated how individual data points could contribute to a
+          broader exposure profile.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="number">INVESTIGATION AREA 02</div>
+        <h3>Data Brokers &amp; People-Finder Sites</h3>
+        <p>
+          Investigated personal information appearing across data-broker and
+          people-finder platforms and performed manual removal and validation
+          activities where required.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="number">INVESTIGATION AREA 03</div>
+        <h3>Public Web &amp; Social Exposure</h3>
+        <p>
+          Reviewed publicly accessible web sources, social-media exposure, public
+          records, and other discoverable information that could expand an
+          individual's digital attack surface.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="number">INVESTIGATION AREA 04</div>
+        <h3>Human Perimeter Risk</h3>
+        <p>
+          Considered how information involving family members, relationships,
+          photographs, locations, and other contextual details could contribute
+          to social-engineering, privacy, or physical-security exposure.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section>
+  <div class="container">
+
+    <h2>Digital Risk Assessment Process</h2>
+
+    <p class="lead">
+      Risk assessments translated OSINT findings into a structured view of
+      digital exposure that could be communicated to stakeholders and used to
+      support privacy and security decisions.
+    </p>
+
+    <div class="flow">
+      <div>
+        <span>01</span>
+        Discover Exposure
+      </div>
+
+      <div>
+        <span>02</span>
+        Validate Findings
+      </div>
+
+      <div>
+        <span>03</span>
+        Assess Risk
+      </div>
+
+      <div>
+        <span>04</span>
+        Communicate &amp; Mitigate
+      </div>
+    </div>
+
+    <div class="response">
+      <h3>Cross-Functional Risk Communication</h3>
+      <p>
+        Developed 17 comprehensive digital risk assessments for prospective
+        clients and organizations, documenting exposed information and presenting
+        the findings as a clear risk narrative. Assessments were provided to the
+        Sales team to support discussions around privacy exposure, risk, and
+        potential mitigation.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<section>
+  <div class="container">
+
+    <h2>Ongoing Privacy Protection</h2>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="number">01</div>
+        <h3>Identification</h3>
+        <p>
+          Conducted ongoing investigations to identify sensitive personal
+          information exposed across public sources and data-broker platforms.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="number">02</div>
+        <h3>Removal</h3>
+        <p>
+          Performed and tracked data-removal activities designed to reduce
+          publicly accessible personal information.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="number">03</div>
+        <h3>Validation</h3>
+        <p>
+          Rechecked sources and removal results to verify whether exposed
+          information had been successfully removed or remained accessible.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="number">04</div>
+        <h3>Monitoring</h3>
+        <p>
+          Continued monitoring for newly exposed or reappearing information,
+          recognizing that digital privacy protection requires an ongoing
+          lifecycle rather than a one-time removal.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section>
+  <div class="container">
+
+    <h2>Rapid-Response Investigations</h2>
+
+    <p class="lead">
+      In higher-risk situations, investigations shifted from routine privacy
+      monitoring to accelerated OSINT review in support of active threat
+      assessment and mitigation.
+    </p>
+
+    <div class="response">
+      <h3>Emergency Reports</h3>
+      <p>
+        Conducted accelerated OSINT sweeps during situations involving potential
+        doxxing, stalking, intimidation, or other active threats. Investigations
+        focused on identifying newly exposed PII, relevant public content, and
+        other discoverable information that could affect the individual's
+        current risk profile.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<section>
+  <div class="container">
+
+    <h2>Security &amp; GRC Relevance</h2>
+
+    <div class="grid">
+
+      <div class="card">
+        <h3>Risk Identification</h3>
+        <p>
+          Identifying exposed information and conditions that could increase
+          privacy, cybersecurity, social-engineering, or physical-security risk.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Risk Analysis</h3>
+        <p>
+          Evaluating findings in context rather than treating each exposed data
+          point as an isolated issue.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Control &amp; Mitigation</h3>
+        <p>
+          Applying removal, monitoring, validation, and exposure-reduction
+          practices to address identified privacy risk.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Stakeholder Communication</h3>
+        <p>
+          Translating technical and investigative findings into clear risk
+          information that could be understood and acted upon by clients and
+          cross-functional teams.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="note">
+      <strong>Professional Work &amp; Confidentiality</strong>
+      <p>
+        This case study describes professional experience at a high level to
+        protect client, employer, and proprietary information. No client
+        identities, confidential assessments, internal methodologies, sensitive
+        findings, or proprietary work products are reproduced.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<footer>
+  <div class="container">
+    © 2026 Leor Manson • Cybersecurity Portfolio
+  </div>
+</footer>
+
+</body>
+</html>
