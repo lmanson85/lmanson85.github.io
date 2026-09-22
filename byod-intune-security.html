@@ -209,7 +209,49 @@
       color: var(--text);
       margin-bottom: 8px;
     }
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 32px;
+}
 
+.evidence-card {
+  background: linear-gradient(145deg, var(--panel), var(--panel-light));
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.evidence-card img {
+  display: block;
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  background: white;
+  border-bottom: 1px solid var(--border);
+}
+
+.evidence-content {
+  padding: 22px;
+}
+
+.evidence-content span {
+  display: block;
+  color: var(--accent);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 7px;
+}
+
+.evidence-content h3 {
+  margin-bottom: 8px;
+}
+
+.evidence-content p {
+  font-size: .92rem;
+}
     .note {
       margin-top: 30px;
       border-left: 3px solid var(--accent);
@@ -229,11 +271,12 @@
       font-size: .9rem;
     }
 
-    @media (max-width: 760px) {
-      .grid,
-      .flow {
-        grid-template-columns: 1fr;
-      }
+@media (max-width: 760px) {
+  .grid,
+  .flow,
+  .evidence-grid {
+    grid-template-columns: 1fr;
+  }
 
       .hero {
         padding-top: 65px;
@@ -474,7 +517,86 @@
   </div>
 </section>
 
+<section>
+  <div class="container">
 
+    <div class="eyebrow">ORIGINAL PROJECT EVIDENCE</div>
+
+    <h2>Intune Implementation &amp; Validation</h2>
+
+    <p class="lead">
+      Selected artifacts from the hands-on environment demonstrate device
+      enrollment and compliance monitoring in Microsoft Intune along with
+      endpoint encryption controls implemented across Windows and Android
+      devices.
+    </p>
+
+    <div class="evidence-grid">
+
+      <div class="evidence-card">
+        <img
+          src="Intune-Dashboard.png"
+          alt="Microsoft Intune dashboard showing device enrollment and compliance status"
+        >
+        <div class="evidence-content">
+          <span>01 — MANAGEMENT</span>
+          <h3>Microsoft Intune Dashboard</h3>
+          <p>
+            The Intune administrative environment provided centralized
+            visibility into enrolled devices and their compliance state.
+          </p>
+        </div>
+      </div>
+
+      <div class="evidence-card">
+        <img
+          src="Intune-Compliant-Devices.png"
+          alt="Microsoft Intune showing enrolled Android and Windows devices in compliant status"
+        >
+        <div class="evidence-content">
+          <span>02 — COMPLIANCE</span>
+          <h3>Compliant Devices</h3>
+          <p>
+            Android and Windows endpoints were enrolled and evaluated through
+            Intune, providing centralized visibility into device compliance.
+          </p>
+        </div>
+      </div>
+
+      <div class="evidence-card">
+        <img
+          src="Intune-Windows-BitLocker.png"
+          alt="Windows endpoint demonstrating BitLocker encryption enabled"
+        >
+        <div class="evidence-content">
+          <span>03 — WINDOWS SECURITY</span>
+          <h3>BitLocker Encryption</h3>
+          <p>
+            The Windows endpoint demonstrates encryption enabled with
+            BitLocker to protect locally stored information.
+          </p>
+        </div>
+      </div>
+
+      <div class="evidence-card">
+        <img
+          src="Intune-Android-Encryption.png"
+          alt="Android device demonstrating native device encryption enabled"
+        >
+        <div class="evidence-content">
+          <span>04 — MOBILE SECURITY</span>
+          <h3>Android Encryption</h3>
+          <p>
+            The Android endpoint demonstrates native device encryption as part
+            of the BYOD security baseline.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
 <section>
   <div class="container">
 
