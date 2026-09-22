@@ -62,7 +62,7 @@ Managed digital privacy protection for **30+ organizations encompassing more tha
 
 **Skills:** OSINT • Digital Privacy • Digital Risk Assessment • PII Exposure • Data-Broker Research • Risk Analysis
 
-[View Professional Experience](https://lmanson85.github.io/#experience)
+[View Professional Case Study](https://lmanson85.github.io/privacy-osint-investigations.html)
 
 ---
 
